@@ -1,0 +1,164 @@
+/* Variables globales */
+:root {
+  --primary-color: #2C5F2D;       /* Verde oscuro */
+  --secondary-color: #A9DFBF;     /* Verde claro */
+  --accent-color: #7D5A50;        /* Tono tierra para hover */
+  --bg-color: #F5F5F5;            /* Fondo general */
+  --card-bg: #FFFFFF;             /* Fondo de tarjetas */
+  --text-color: #333333;          /* Texto principal */
+  --border-radius: 8px;           /* Bordes redondeados */
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Contenedor principal */
+.home-container {
+  background-color: var(--bg-color);
+}
+
+/* Sección Hero */
+.hero-section {
+  /* Fondo con degradado y una imagen de respaldo */
+  background: linear-gradient(rgba(44,95,45,0.8), rgba(44,95,45,0.8)), 
+              url('https://via.placeholder.com/1200x600/2C5F2D/FFFFFF?text=Guardianes+del+Entorno');
+  background-size: cover;
+  background-position: center;
+  padding: 30px 0;
+}
+
+.hero-section .hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.hero-section .hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Imagen de la sección hero */
+.hero-section img {
+  max-width: 100%;
+  border-radius: var(--border-radius);
+}
+
+/* Barra de navegación para búsqueda */
+.search-navbar .nav {
+  display: flex;
+  justify-content: center;
+}
+
+.search-navbar .nav-link {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  margin: 0 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-navbar .nav-link:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.search-navbar .nav-link.active {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Secciones de contenido: Áreas, Especies y Actividades */
+.areas-section,
+.species-section,
+.activities-section {
+  padding: 60px 0;
+}
+
+.areas-section h2,
+.species-section h2,
+.activities-section h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Estilos para los filtros de áreas y especies */
+.area-filters input,
+.area-filters select,
+.species-filters input,
+.species-filters select {
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.area-filters input:focus,
+.area-filters select:focus,
+.species-filters input:focus,
+.species-filters select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Tarjetas para áreas y especies */
+.card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background-color: var(--card-bg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Lista de actividades */
+.activities-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.activities-section li {
+  background-color: var(--card-bg);
+  border: 1px solid #eaeaea;
+  border-radius: var(--border-radius);
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.activities-section li:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 20px;
+  }
+  
+  .hero-section .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-section .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .search-navbar .nav-link {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

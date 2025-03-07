@@ -1,0 +1,90 @@
+/* Variables globales */
+:root {
+  --primary-color: #2C5F2D;       /* Verde oscuro */
+  --secondary-color: #A9DFBF;     /* Verde claro */
+  --accent-color: #7D5A50;        /* Tono tierra para hover */
+  --bg-color: #F5F5F5;            /* Fondo general */
+  --card-bg: #FFFFFF;             /* Fondo de tarjetas y menús */
+  --text-color: #333333;          /* Texto principal */
+  --border-radius: 8px;           /* Bordes redondeados */
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Contenedor del UserMenu */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* Ícono del usuario */
+.user-menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.user-menu-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Dropdown del menú */
+.user-menu-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  z-index: 100;
+  padding: 10px 0;
+  min-width: 200px;
+}
+
+/* Lista principal del menú */
+.user-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos de la lista */
+.user-menu-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover para elementos */
+.user-menu-item:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Enlaces dentro del menú */
+.user-menu-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  display: block;
+}
+
+/* Hover para enlaces */
+.user-menu-link:hover {
+  color: var(--accent-color);
+}
+
+/* Submenú para "Crear Publicación" */
+.publication-submenu {
+  list-style: none;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+/* Elementos del submenú */
+.publication-menu-item {
+  padding: 5px 0;
+  transition: background-color 0.3s ease;
+}
+
+.publication-menu-item:hover {
+  background-color: var(--secondary-color);
+}

@@ -1,0 +1,99 @@
+/* Variables globales */
+:root {
+  --primary-color: #2C5F2D;       /* Verde oscuro */
+  --secondary-color: #A9DFBF;     /* Verde claro */
+  --accent-color: #7D5A50;        /* Tono tierra para hover */
+  --bg-color: #F5F5F5;            /* Fondo general */
+  --card-bg: #FFFFFF;             /* Fondo de tarjetas y contenedores */
+  --text-color: #333333;          /* Color principal del texto */
+  --border-radius: 10px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Página de login: fondo con degradado y animación de entrada */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f8f4, #e6f0e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Contenedor principal */
+.login-hero {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Contenedor del formulario */
+.login-form-container {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--secondary-color);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Título del formulario */
+.login-form-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+/* Etiquetas de los inputs */
+.login-form-container .form-label {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Campos de formulario */
+.login-form-container .form-control {
+  border-radius: var(--border-radius);
+  border: 1px solid var(--secondary-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form-container .form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(44, 95, 45, 0.3);
+}
+
+/* Botón de inicio de sesión */
+.login-form-container .btn-success {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.login-form-container .btn-success:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: scale(1.03);
+}
+
+/* Alertas (éxito/error) */
+.login-form-container .alert {
+  border-radius: var(--border-radius);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  animation: fadeInUp 0.5s ease;
+}

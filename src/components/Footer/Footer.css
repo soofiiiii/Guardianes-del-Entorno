@@ -1,0 +1,21 @@
+/* Footer.css */
+:root {
+    --primary-color: #2C5F2D;       /* Verde oscuro */
+    --bg-light: #F5F5F5;            /* Fondo claro */
+  }
+  
+  footer {
+    background-color: var(--bg-light);
+    padding: 1.5rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  footer p {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 500;
+  }
+  

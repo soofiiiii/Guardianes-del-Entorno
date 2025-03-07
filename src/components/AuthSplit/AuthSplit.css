@@ -1,0 +1,196 @@
+/* Paleta de colores base */
+:root {
+  --primary-color: #2C5F2D;       /* Verde oscuro */
+  --accent-color: #7D5A50;        /* Tono tierra */
+  --white: #FFFFFF;               /* Blanco */
+  --light-bg: #F5F5F5;            /* Fondo claro */
+  --border-radius: 12px;          /* Bordes más suaves */
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Sombra más notoria */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contenedor principal: "split screen" */
+.auth-split-container {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f8f4, #e6f0e8);
+  animation: fadeIn 1s ease-out;
+  overflow: hidden; /* Para la ola decorativa */
+}
+
+/* Ola decorativa (wave shape) */
+.wave-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  transform: translateY(-2px); /* Ajuste leve para que no queden espacios */
+  z-index: 1;
+}
+.wave-shape svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Panel Izquierdo: Login */
+.left-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 2rem;
+  z-index: 2; /* Sobre la ola */
+}
+
+/* Sección de Login */
+.login-section {
+  max-width: 350px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+  box-shadow: var(--shadow);
+}
+
+.login-section h2 {
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Inputs de Login */
+.login-section form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-section form input:focus {
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* Botón de Login */
+.login-section form button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.login-section form button:hover {
+  background-color: var(--accent-color);
+  color: var(--white);
+  transform: scale(1.03);
+}
+
+/* Panel Derecho: Registro */
+.right-panel {
+  flex: 1.2; /* Un poco más ancho que el izquierdo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 2;
+}
+
+/* Sección de Registro */
+.register-section {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+.register-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Inputs de Registro */
+.register-section form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-section form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(44, 95, 45, 0.2);
+}
+
+/* Botón de Registro */
+.register-section form button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.register-section form button:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.03);
+}
+
+/* Mensajes de error y éxito */
+.error-msg {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.success-msg {
+  color: #2ecc71;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
