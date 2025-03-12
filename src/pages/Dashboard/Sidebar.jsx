@@ -19,10 +19,22 @@ const Sidebar = ({ activeSection, setActiveSection }) => {
           Perfil
         </li>
         <li 
-          className={activeSection === 'publications' ? 'active' : ''}
-          onClick={() => setActiveSection('publications')}
+          className={activeSection === 'areas' ? 'active' : ''} 
+          onClick={() => setActiveSection('areas')}
         >
-          Mis Publicaciones
+          Mis Áreas
+        </li>
+        <li 
+          className={activeSection === 'species' ? 'active' : ''} 
+          onClick={() => setActiveSection('species')}
+        >
+          Mis Especies
+        </li>
+        <li 
+          className={activeSection === 'activities' ? 'active' : ''} 
+          onClick={() => setActiveSection('activities')}
+        >
+          Mis Actividades
         </li>
         <li 
           className={activeSection === 'settings' ? 'active' : ''}

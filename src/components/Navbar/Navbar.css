@@ -1,163 +1,155 @@
-/* Ajustes generales del navbar */
+/* Estilos generales del navbar */
 .navbar {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 10;
-  }
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1050;
+}
+
+.navbar .container {
+  max-width: auto;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
   
+}
+
+/* Estilos del logo */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #28a745;
+  text-decoration: none;
+  margin-right: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-brand:hover {
+  color: #218838;
+}
+
+/* Botón toggler para pantallas pequeñas */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* Menú de navegación */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  list-style: none;
+  padding: 0;
+}
+
+/* Ítems del navbar */
+.nav-item {
+  margin-left: 1rem;
+  position: relative;
+}
+
+.nav-link {
+  color: #28a745;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #218838;
+}
+
+/* Estilo del dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #28a745;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #218838;
+}
+
+/* Botones de sesión */
+.btn-outline-success {
+  color: #28a745;
+  border: 1px solid #28a745;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Ícono del usuario */
+.user-menu-icon {
+  font-size: 1.5rem;
+  color: #28a745;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.user-menu-icon:hover {
+  color: #218838;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
   .navbar .container {
-    max-width: 1200px; /* Ajusta según prefieras */
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-  }
-  
-  .navbar-brand {
-    font-weight: bold;
-    font-size: 1.25rem;
-    color: #28a745; /* Verde */
-    text-decoration: none;
-    margin-right: 1rem;
-  }
-  
-  .navbar-brand:hover {
-    color: #218838; /* Un tono más oscuro */
-    text-decoration: none;
-  }
-  
-  /* Botón toggler (para pantallas pequeñas) */
-  .navbar-toggler {
-    border: none;
-    background: transparent;
-    font-size: 1.2rem;
-    margin-left: auto;
-    cursor: pointer;
-  }
-  
-  /* Sección de enlaces */
-  .navbar-nav {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0;
-  }
-  
-  /* Items del navbar */
-  .nav-item {
-    margin-left: 1rem;
-    position: relative;
-  }
-  
-  .nav-link {
-    color: #28a745; /* Verde */
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-  
-  .nav-link:hover {
-    color: #218838; /* Verde más oscuro */
-    text-decoration: none;
-  }
-  
-  /* Dropdown */
-  .nav-item.dropdown .dropdown-toggle {
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 200px;
-    background-color: #fff;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    padding: 0.5rem 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: none; /* Por defecto oculto */
-    z-index: 999;
-  }
-  
-  .nav-item.dropdown:hover .dropdown-menu {
-    display: block; /* Muestra el menú al hacer hover en el nav-item */
-  }
-  
-  .dropdown-menu .dropdown-item {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #28a745;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .dropdown-menu .dropdown-item:hover {
-    background-color: #f8f9fa;
-    color: #218838;
-  }
-  
-  /* Botones de registro e iniciar sesión */
-  .btn-outline-success {
-    color: #28a745;
-    border: 1px solid #28a745;
-    background: transparent;
-    margin-right: 0.5rem;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-outline-success:hover {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-  }
-  
-  /* Ícono del usuario (UserMenu) */
-  .user-menu-icon {
-    font-size: 1.5rem;
-    color: #28a745;
-    cursor: pointer;
-    margin-left: 1rem;
-    transition: color 0.2s ease;
-  }
-  
-  .user-menu-icon:hover {
-    color: #218838;
-  }
-  
-  /* Ajustes responsivos para pantallas pequeñas */
-  @media (max-width: 768px) {
-    .navbar .container {
       flex-wrap: wrap;
-    }
-    .navbar-toggler {
-      margin-left: 0;
-    }
-    .navbar-nav {
+      justify-content: space-between;
+  }
+
+  .navbar-nav {
       flex-direction: column;
       width: 100%;
       margin-top: 1rem;
-    }
-    .nav-item {
+      text-align: center;
+  }
+
+  .nav-item {
       margin-left: 0;
       margin-bottom: 0.5rem;
-    }
-    .nav-item.dropdown:hover .dropdown-menu {
-      display: none; /* En móviles, podrías manejar un toggle en vez de hover */
-    }
   }
-  
+
+  .dropdown-menu {
+      width: 100%;
+      text-align: center;
+  }
+}

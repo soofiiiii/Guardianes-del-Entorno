@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { createSpecies } from '../../services/speciesService';
+import UserPublicationsSelect from '../../components/UserPublicationsSelect/UserPublicationsSelect';
+import Navbar from "../../components/Navbar/Navbar";
 
 const CreateSpecies = () => {
   const { user } = useContext(AuthContext);
@@ -12,58 +14,80 @@ const CreateSpecies = () => {
     scientificName: '',
     category: '',
     conservationStatus: '',
-    naturalAreaId: ''
+    naturalAreaId: null 
   });
+
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  //   Actualiza el naturalAreaId cuando el usuario selecciona una publicación
+  const handleAreaSelect = (selectedId) => {
+    console.log(" ID recibida en CreateSpecies:", selectedId);
+    setFormData({ ...formData, naturalAreaId: selectedId ? Number(selectedId) : null });
+  };
+  
+  
+
+  //   Manejo de cambios en los inputs del formulario
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //   Enviar el formulario
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccessMessage('');
+      e.preventDefault();
+      setError('');
+      setSuccessMessage('');
+      setLoading(true);
 
-    if (!user) {
-      setError('Debes iniciar sesión para crear una especie.');
-      return;
-    }
+      console.log(" Estado actual de formData antes de enviar:", formData);
 
-    setLoading(true);
-    const payload = {
-      userId: user.id, 
-      species: {
-        commonName: formData.commonName,
-        scientificName: formData.scientificName,
-        category: formData.category,
-        conservationStatus: formData.conservationStatus,
-        naturalAreaId: parseInt(formData.naturalAreaId) 
+      if (!formData.naturalAreaId || isNaN(formData.naturalAreaId)) {
+          setError("Debes seleccionar un área natural válida.");
+          console.error(" Error: naturalAreaId es inválido antes de enviar.", formData);
+          setLoading(false);
+          return;
       }
-    };
 
-    try {
-      const data = await createSpecies(payload);
-      if (data.Success || data.result) {
-        setSuccessMessage(data.Message || 'Especie insertada correctamente.');
-      } else {
-        setError(data.Message || 'No se pudo crear la especie.');
+      const payload = {
+          userId: user.id,
+          species: {
+              CommonName: formData.commonName,
+              ScientificName: formData.scientificName,
+              Category: formData.category,
+              ConservationStatus: formData.conservationStatus,
+              NaturalAreaId: Number(formData.naturalAreaId)
+          }
+      };
+
+      console.log(" Enviando payload:", JSON.stringify(payload, null, 2));
+
+      try {
+          const response = await createSpecies(payload); 
+
+          if (response && (response.Success || response.result)) {
+              setSuccessMessage("Especie creada exitosamente.");
+              navigate("/dashboard");
+          } else {
+              setError(response?.Message || "No se pudo crear la especie.");
+          }
+      } catch (err) {
+          console.error(" Error en createSpecies:", err);
+          setError("Error al conectar con el servidor.");
+      } finally {
+          setLoading(false);
       }
-    } catch (err) {
-      console.error(err);
-      setError('Error de conexión al servidor.');
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
+    <>
+    < Navbar />
     <div className="container mt-4">
       <h2>Crear Especie Avistada</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
+
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Nombre Común</label>
@@ -113,22 +137,17 @@ const CreateSpecies = () => {
             <option value="Estable">Estable</option>
           </select>
         </div>
-        <div className="mb-3">
-          <label className="form-label">ID del Área Natural</label>
-          <input
-            type="number"
-            className="form-control"
-            name="naturalAreaId"
-            value={formData.naturalAreaId}
-            onChange={handleChange}
-            required
-          />
-        </div>
+
+        {/*   Aquí usamos el nuevo componente para seleccionar un área natural */}
+        <UserPublicationsSelect onSelect={handleAreaSelect} setFormData={setFormData} />
+
+
         <button type="submit" className="btn btn-success" disabled={loading}>
           {loading ? 'Creando...' : 'Crear Especie'}
         </button>
       </form>
     </div>
+    </>
   );
 };
 

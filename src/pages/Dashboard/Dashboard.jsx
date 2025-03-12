@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Profile from './Profile';
-import MyPublications from './MyPublications';
+import MyAreas from './MyAreas';
+import MySpecies from './MySpecies';
+import MyActivities from './MyActivities';
 import AccountSettings from './AccountSettings';
 import './Dashboard.css';
+import Navbar from '../../components/Navbar/Navbar';
 
 const Dashboard = () => {
-  // Controla qué sección se muestra a la derecha
   const [activeSection, setActiveSection] = useState('profile');
 
   const renderContent = () => {
     switch (activeSection) {
       case 'profile':
         return <Profile />;
-      case 'publications':
-        return <MyPublications />;
+      case 'areas':
+        return <MyAreas />;
+      case 'species':
+        return <MySpecies />;
+      case 'activities':
+        return <MyActivities />;
       case 'settings':
         return <AccountSettings />;
       default:
@@ -23,12 +29,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
-      <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
-      <div className="dashboard-content">
-        {renderContent()}
+    <>
+      <Navbar />
+      <div className="dashboard-container">
+        <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+        <div className="dashboard-content">
+          {renderContent()}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

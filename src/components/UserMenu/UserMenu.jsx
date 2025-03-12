@@ -10,19 +10,15 @@ const UserMenu = () => {
   const [publicationMenuOpen, setPublicationMenuOpen] = useState(false);
   const menuRef = useRef();
 
-  // Alterna la visualización del menú principal
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
-    // Si se cierra el menú principal, también se cierra el submenú
     if (menuOpen) setPublicationMenuOpen(false);
   };
 
-  // Alterna la visualización del submenú "Crear Publicación"
   const togglePublicationMenu = () => {
     setPublicationMenuOpen(prev => !prev);
   };
 
-  // Manejo del logout con confirmación
   const handleLogout = () => {
     if (window.confirm('¿Estás seguro de que deseas cerrar sesión?')) {
       logout();
@@ -30,7 +26,6 @@ const UserMenu = () => {
     }
   };
 
-  // Cierra el menú si se hace clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -51,15 +46,10 @@ const UserMenu = () => {
       />
 
       {menuOpen && (
-        <div className="user-menu-dropdown">
+        <div className="user-menu-dropdown position-absolute mt-2">
           <ul className="user-menu-list">
-          
-          <li className="user-menu-item">
-              <Link
-                to="/dashboard"
-                onClick={() => setMenuOpen(false)}
-                className="user-menu-link"
-              >
+            <li className="user-menu-item">
+              <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="user-menu-link">
                 Mi Cuenta
               </Link>
             </li>
@@ -69,43 +59,26 @@ const UserMenu = () => {
               {publicationMenuOpen && (
                 <ul className="publication-submenu">
                   <li className="publication-menu-item">
-                    <Link
-                      to="/crear-area"
-                      onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }}
-                      className="user-menu-link"
-                    >
+                    <Link to="/crear-area" onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }} className="user-menu-link">
                       Nueva Área Natural
                     </Link>
                   </li>
                   <li className="publication-menu-item">
-                    <Link
-                      to="/crear-especie"
-                      onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }}
-                      className="user-menu-link"
-                    >
+                    <Link to="/crear-especie" onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }} className="user-menu-link">
                       Nueva Especie Avistada
                     </Link>
                   </li>
                   <li className="publication-menu-item">
-                    <Link
-                      to="/crear-actividad"
-                      onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }}
-                      className="user-menu-link"
-                    >
+                    <Link to="/crear-actividad" onClick={() => { setMenuOpen(false); setPublicationMenuOpen(false); }} className="user-menu-link">
                       Nueva Actividad
                     </Link>
                   </li>
-
                 </ul>
               )}
             </li>
 
             <li className="user-menu-item">
-              <Link
-                to="/settings"
-                onClick={() => setMenuOpen(false)}
-                className="user-menu-link"
-              >
+              <Link to="/settings" onClick={() => setMenuOpen(false)} className="user-menu-link">
                 Ajustes
               </Link>
             </li>

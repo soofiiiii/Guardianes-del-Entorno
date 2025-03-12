@@ -1,0 +1,74 @@
+/* Contenedor principal de las publicaciones */
+.publications-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+}
+
+/* Título de la sección */
+.publications-title {
+    text-align: center;
+    color: #155724;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Estilo para las listas */
+.publications-list {
+    list-style: none;
+    padding: 0;
+}
+
+.publications-item {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Botones de acción */
+.publications-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Mensaje cuando no hay publicaciones */
+.publications-empty {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}

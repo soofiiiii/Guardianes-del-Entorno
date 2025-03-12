@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { createConservationActivity } from '../../services/conservationActivityService';
+import UserPublicationsSelect from '../../components/UserPublicationsSelect/UserPublicationsSelect'; //  Importar el selector
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
@@ -10,13 +11,19 @@ const CreateConservationActivity = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    naturalAreaId: '',
+    naturalAreaId: null,
     description: '',
     date: ''
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  //  Función para actualizar el ID del área natural al seleccionarla
+  const handleAreaSelect = (selectedId) => {
+    console.log(" ID recibida en CreateConservationActivity:", selectedId);
+    setFormData((prev) => ({ ...prev, naturalAreaId: selectedId ? Number(selectedId) : null }));
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,12 +34,15 @@ const CreateConservationActivity = () => {
     setError('');
     setSuccessMessage('');
 
-    if (!user) {
+    console.log("Usuario en contexto:", user);
+
+    if (!user || !user.id) {
       setError('Debes iniciar sesión para registrar una actividad de conservación.');
+      console.error("Error: `user.id` es indefinido o nulo.");
       return;
     }
-    if (!formData.naturalAreaId) {
-      setError('Selecciona el área natural.');
+    if (!formData.naturalAreaId || isNaN(formData.naturalAreaId)) {
+      setError('Selecciona un área natural válida.');
       return;
     }
 
@@ -47,17 +57,20 @@ const CreateConservationActivity = () => {
       }
     };
 
+    console.log("Payload que se enviará:", JSON.stringify(payload, null, 2));
+
     try {
       const data = await createConservationActivity(payload);
+      console.log("Respuesta del servidor:", data);
+
       if (data.result) {
         setSuccessMessage('Actividad de conservación creada correctamente.');
-        // Opcional: redirigir a la lista de actividades o a otra sección
-        // navigate('/mis-actividades');
+        navigate("/dashboard");
       } else {
         setError('No se pudo crear la actividad.');
       }
     } catch (err) {
-      console.error(err);
+      console.error("Error al conectar con el servidor:", err);
       setError('Error al conectar con el servidor.');
     } finally {
       setLoading(false);
@@ -73,17 +86,12 @@ const CreateConservationActivity = () => {
         {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
         <form onSubmit={handleSubmit}>
+          {/*  Selector dinámico para el área natural */}
           <div className="mb-3">
-            <label className="form-label">ID del Área Natural</label>
-            <input
-              type="number"
-              className="form-control"
-              name="naturalAreaId"
-              value={formData.naturalAreaId}
-              onChange={handleChange}
-              required
-            />
+            <label className="form-label">Área Natural</label>
+            <UserPublicationsSelect onSelect={handleAreaSelect} setFormData={setFormData} />
           </div>
+
           <div className="mb-3">
             <label className="form-label">Descripción</label>
             <textarea

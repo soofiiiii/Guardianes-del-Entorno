@@ -114,3 +114,10 @@
     transform: scale(1.03);
   }
   
+  
+/* Responsividad */
+@media (max-width: 768px) {
+  .posts-container {
+    margin-top: 90px;
+  }
+}

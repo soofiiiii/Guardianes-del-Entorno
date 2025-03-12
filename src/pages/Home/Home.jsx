@@ -35,10 +35,6 @@ const Home = () => {
   const [loadingSpecies, setLoadingSpecies] = useState(false);
   const [errorSpecies, setErrorSpecies] = useState('');
 
-  const [activities, setActivities] = useState([]);
-  const [loadingActivities, setLoadingActivities] = useState(false);
-  const [errorActivities, setErrorActivities] = useState('');
-
   // Carga inicial de áreas (se cargan por defecto)
   useEffect(() => {
     const fetchAreas = async () => {
@@ -133,17 +129,17 @@ const Home = () => {
                 Registrarme
               </Link>
             </div>
-            <div className="col-md-6 d-flex justify-content-center">
-            <img
-              src={entornoImage}
-              alt="Ilustración de entorno"
-              className="img-fluid rounded"
-            />
-
+            <div className=" hero-image col-md-6 d-flex justify-content-center">
+              <img
+                src={entornoImage}
+                alt="Ilustración de entorno"
+                className="hero-image img-fluid"
+              />
             </div>
           </div>
         </div>
       </header>
+
 
       {/* Barra de navegación para búsqueda entre Áreas, Especies o Actividades */}
       <nav className="search-navbar my-4">

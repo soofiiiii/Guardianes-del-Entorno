@@ -1,17 +1,19 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-
+// Componente para proteger rutas privadas
 const PrivateRoute = ({ children }) => {
-    const { user } = useContext(AuthContext);
+  // Obtiene el usuario desde el contexto de autenticación
+  const { user } = useContext(AuthContext);
 
-    if(!user) {
-        // Redirige a la página de login si no está autenticado
-        return <Navigate to="/login" />; 
-    }
+  // Si no hay usuario, redirige a la página de login
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
-    return children;
-}
+  // Si hay usuario, renderiza los componentes hijos
+  return children;
+};
 
 export default PrivateRoute;

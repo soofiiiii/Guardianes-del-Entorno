@@ -10,48 +10,65 @@ import {
   removeAreasFromStorage
 } from "../services/localStorageService";
 
+// Crear el contexto de autenticación
 export const AuthContext = createContext();
 
+// Componente proveedor del contexto
 export const AuthProvider = ({ children }) => {
+  // Estado para el usuario, inicializado desde localStorage
   const [user, setUser] = useState(getUserFromStorage);
+  // Estado para las áreas (publicaciones) del usuario, inicializado desde localStorage
   const [myAreas, setMyAreas] = useState(getAreasFromStorage);
 
+  // Efecto para cargar las áreas del usuario cuando éste cambia
   useEffect(() => {
     const fetchUserAreas = async () => {
+      // Si no hay usuario autenticado, salir de la función
       if (!user || !user.id) {
-        console.error("❌ No hay usuario autenticado.");
+        console.error("No hay usuario autenticado.");
         return;
       }
 
       try {
-        console.log(`🔍 Cargando áreas para el usuario con ID ${user.id}...`);
-        console.log("📢 Usuario autenticado en AuthContext:", user);
+        // Obtener publicaciones guardadas en localStorage
+        const storedPublications = JSON.parse(localStorage.getItem("misPublicaciones")) || {};
 
-        const data = await listUserNaturalAreas(user.id);
-        console.log("📌 Áreas devueltas por la API:", data.items);
+        // Extraer las publicaciones del usuario actual
+        const userPublications = storedPublications[user.id] || [];
 
-        if (data.items) {
-          // 🔹 Filtramos manualmente las áreas por usuario
-          const userAreas = data.items.filter(area => Number(area.userId) === Number(user.id));
-          console.log("✅ Áreas filtradas correctamente:", userAreas);
+        console.log("Publicaciones recuperadas desde localStorage para usuario:", user.id, userPublications);
 
-          setMyAreas(userAreas);
-          saveAreasToStorage(userAreas); // Guardar en localStorage
+        if (userPublications.length > 0) {
+          // Si existen publicaciones guardadas, usarlas
+          setMyAreas(userPublications);
         } else {
-          console.warn("⚠️ La API no devolvió áreas.");
-          setMyAreas([]);
-          removeAreasFromStorage();
+          // Si no hay publicaciones, consultarlas a través de la API
+          const data = await listUserNaturalAreas();
+          console.log("Datos de la API antes del filtrado:", data.items);
+
+          if (data.items) {
+            // Filtrar las áreas del usuario por el correo electrónico
+            const userAreas = data.items.filter(area => area.authorEmail === user.email);
+            setMyAreas(userAreas);
+
+            // Guardar las publicaciones del usuario en localStorage
+            storedPublications[user.id] = userAreas;
+            localStorage.setItem("misPublicaciones", JSON.stringify(storedPublications));
+          } else {
+            console.warn("La API no devolvió áreas.");
+            setMyAreas([]);
+          }
         }
       } catch (error) {
-        console.error("❌ Error al cargar áreas:", error);
+        console.error("Error al cargar áreas:", error);
         setMyAreas([]);
-        removeAreasFromStorage();
       }
     };
 
     fetchUserAreas();
   }, [user]);
 
+  // Función para agregar un área a las publicaciones del usuario
   const addArea = (area) => {
     setMyAreas((prev) => {
       const updatedAreas = [...prev, area];
@@ -60,15 +77,16 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  // Función para eliminar un área (publicación) del usuario
   const removeArea = async (areaId) => {
     if (!user || !areaId) return;
   
     try {
-      console.log("🗑️ Eliminando área con ID:", areaId);
+      console.log("Eliminando área con ID:", areaId);
       const response = await deleteNaturalArea({ userId: user.id, naturalAreaId: areaId });
   
       if (response.result) {
-        console.log("✅ Área eliminada correctamente");
+        console.log("Área eliminada correctamente");
   
         setMyAreas((prev) => {
           const updatedAreas = prev.filter(area => area.id !== areaId);
@@ -76,19 +94,31 @@ export const AuthProvider = ({ children }) => {
           return updatedAreas;
         });
       } else {
-        console.error("❌ La API no devolvió éxito al eliminar.");
+        console.error("La API no devolvió éxito al eliminar.");
       }
     } catch (error) {
-      console.error("❌ Error al eliminar el área:", error);
+      console.error("Error al eliminar el área:", error);
     }
   };
   
-
+  // Función para cerrar sesión
   const logout = () => {
+    if (!user || !user.id) {
+      console.error("Error: No hay usuario autenticado para desloguear.");
+      return;
+    }
+
+    // Recuperar publicaciones existentes en localStorage
+    const storedPublications = JSON.parse(localStorage.getItem("misPublicaciones")) || {};
+
+    // Guardar las publicaciones del usuario antes de cerrar sesión
+    storedPublications[user.id] = myAreas;
+    localStorage.setItem("misPublicaciones", JSON.stringify(storedPublications));
+
+    // Limpiar el estado del usuario y de sus áreas, y eliminar el usuario del localStorage
     setUser(null);
     removeUserFromStorage();
-    setMyAreas([]);
-    removeAreasFromStorage();
+    setMyAreas([]); // Las publicaciones se mantienen guardadas en localStorage
   };
 
   return (
@@ -99,6 +129,7 @@ export const AuthProvider = ({ children }) => {
         addArea,
         removeArea,
         isAuthenticated: !!user,
+        // Función para iniciar sesión
         login: async (email, password) => {
           const response = await loginUser(email, password);
           if (response.isValid) {
@@ -107,6 +138,7 @@ export const AuthProvider = ({ children }) => {
           }
           return response;
         },
+        // Función para registrar usuario
         register: async (data) => registerUser(data),
         logout,
       }}

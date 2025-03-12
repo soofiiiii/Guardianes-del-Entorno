@@ -20,7 +20,7 @@ const Posts = () => {
         const data = await listAllNaturalAreas(page, pageSize);
         console.log('Respuesta de la API:', JSON.stringify(data, null, 2));
         
-        // Usamos la propiedad "items" (o "Items" o "data")
+        
         const areasList = data.Items || data.items || data.data;
         
         if (areasList && Array.isArray(areasList)) {
